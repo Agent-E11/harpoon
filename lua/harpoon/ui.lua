@@ -187,11 +187,11 @@ function M.nav_file(id)
 
     local mark = Marked.get_marked_file(idx)
     local filename = ""
-    if not string.find(mark.filename, "^.+://") then
+    if string.find(mark.filename, "^.+://") then
         -- If the filename starts with a "protocol", don't normalize it
-        filename = vim.fs.normalize(mark.filename)
-    else
         filename = mark.filename
+    else
+        filename = vim.fs.normalize(mark.filename)
     end
     local buf_id = get_or_create_buffer(filename)
     local set_row = not vim.api.nvim_buf_is_loaded(buf_id)

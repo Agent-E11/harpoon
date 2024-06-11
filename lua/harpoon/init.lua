@@ -144,7 +144,11 @@ local function ensure_correct_config(config)
             marks[idx] = mark
         end
 
-        marks[idx].filename = utils.normalize_path(mark.filename)
+        if string.find(marks[idx].filename, "^.+://") then
+            marks[idx].filename = mark.filename
+        else
+            marks[idx].filename = utils.normalize_path(mark.filename)
+        end
     end
 
     return config
